@@ -44,34 +44,42 @@ public class MainController {
     @FXML private TextField txtDificultad;
     @FXML private CheckBox chkVegetariano;
 
+    // Lista para que la tabla se actualice automáticamente
     private ObservableList<Plato> listaPlatos = FXCollections.observableArrayList();
+    //guarda el plato que el usuario ha seleccionado
     private Plato platoSeleccionado;
 
     // METODO INITIALIZE (Se ejecuta al arrancar la ventana)
     @FXML
     public void initialize() {
-        // 1. Configurar columnas RESTAURANTES
+        //Configuracion RESTAURANTES
+        // 1. Configurar columnas
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colCiudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
 
-        // 2. Cargar datos del repositorio RESTAURANTES
+        // 2. Cargar datos del repositorio
         listaRestaurantes = FXCollections.observableArrayList(DataRepository.getRestaurantes());
         tvRestaurantes.setItems(listaRestaurantes);
 
-        // 3. Detectar clic en la tabla RESTAURANTES
+        // 3. Detectar clic en la tabla
         tvRestaurantes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             restauranteSeleccionado = newSelection;
             mostrarDetalles(restauranteSeleccionado);
         });
 
+        //Configuracion PLATOS
+        //vinculo columnas
         colNombrePlato.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
 
+        //cargo datos iniciales
         listaPlatos.addAll(DataRepository.getPlatos());
         tvPlatos.setItems(listaPlatos);
 
+        //asegurar nada seleccionado
         tvRestaurantes.getSelectionModel().clearSelection(); // Limpiar al inicio
 
+        //detectar clic
         tvPlatos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             platoSeleccionado = newSelection;
             if (platoSeleccionado != null) {
@@ -166,10 +174,10 @@ public class MainController {
 
         } catch (NumberFormatException e) {
             mostrarAlerta("Error", "El Aforo debe ser un número.");
-        } catch (Exception e) {
-            mostrarAlerta("Error", "Ha ocurrido un error: " + e.getMessage());
         }
     }
+
+
 
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -179,6 +187,7 @@ public class MainController {
         alert.showAndWait();
         System.out.println("Botón Guardar pulsado");
     }
+
 
     @FXML
     public void onEliminarClick(ActionEvent actionEvent) {
@@ -197,16 +206,17 @@ public class MainController {
         // Solo borramos si dice "Aceptar"
         if (alert.showAndWait().get() == ButtonType.OK) {
 
-            // 2. Borrar del disco (Repositorio)
-            DataRepository.removeRestaurante(restauranteSeleccionado);
-
-            // 3. Borrar de la pantalla (Lista visual)
-            listaRestaurantes.remove(restauranteSeleccionado);
-
-            // 4. Limpiar el formulario
-            onNuevoClick(null);
-
+            DataRepository.removeRestaurante(restauranteSeleccionado);      // Borrar del disco (Repositorio)
+            listaRestaurantes.remove(restauranteSeleccionado);      //Borrar de la pantalla
+            onNuevoClick(null);     //Limpiar el formulario
             mostrarAlerta("Eliminado", "Restaurante eliminado correctamente.");
         }
     }
+    //CRUD PLATOS
+    @FXML
+    public void onNuevoPlatoClick(ActionEvent event){
+        tvPlatos.getSelectionModel().clearSelection();
+        platoSeleccionado =null;
+    }
+
 }
