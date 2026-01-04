@@ -217,6 +217,13 @@ public class MainController {
     public void onNuevoPlatoClick(ActionEvent event){
         tvPlatos.getSelectionModel().clearSelection();
         platoSeleccionado =null;
+
+        txtNombrePlato.clear();
+        txtPrecio.clear();
+        txtCalorias.clear();
+        txtDificultad.clear();
+        chkVegetariano.setSelected(false);
+        txtNombrePlato.requestFocus();
     }
 
 }
