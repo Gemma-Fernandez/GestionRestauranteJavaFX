@@ -1,5 +1,6 @@
 package com.restaurante.app;
 
+import com.restaurante.app.model.Empleado;
 import com.restaurante.app.model.Plato;
 import com.restaurante.app.model.Restaurante;
 import com.restaurante.app.repository.DataRepository;
@@ -49,6 +50,23 @@ public class MainController {
     //guarda el plato que el usuario ha seleccionado
     private Plato platoSeleccionado;
 
+    //Elementos EMPLEADOS
+    @FXML private TableView<Empleado> tvEmpleados;
+    @FXML private TableColumn<Empleado, String> colNombreEmp;
+    @FXML private TableColumn<Empleado, String> colApellidosEmp;
+    @FXML private TableColumn<Empleado, Float> colSueldoEmp; // Ojo: Float
+    @FXML private TableColumn<Empleado, String> colHorarioEmp;
+
+    @FXML private TextField txtNombreEmp;
+    @FXML private TextField txtApellidosEmp;
+    @FXML private TextField txtSueldoEmp;
+    @FXML private TextField txtHorarioEmp;
+    @FXML private DatePicker dpFechaContrato;
+
+    private ObservableList<Empleado> listaEmpleados = FXCollections.observableArrayList();
+    private Empleado empleadoSeleccionado;
+
+
     // METODO INITIALIZE (Se ejecuta al arrancar la ventana)
     @FXML
     public void initialize() {
@@ -88,6 +106,27 @@ public class MainController {
                 txtCalorias.setText(String.valueOf(platoSeleccionado.getCalorias()));
                 txtDificultad.setText(platoSeleccionado.getDificultad());
                 chkVegetariano.setSelected(platoSeleccionado.isVegetariano());
+            }
+        });
+
+        //Configuracion EMPLEADOS
+        colNombreEmp.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colApellidosEmp.setCellValueFactory(new PropertyValueFactory<>("apellidos")); // Coincide con el modelo
+        colSueldoEmp.setCellValueFactory(new PropertyValueFactory<>("sueldo"));
+        colHorarioEmp.setCellValueFactory(new PropertyValueFactory<>("horario"));
+
+        listaEmpleados.addAll(DataRepository.getEmpleados());
+        tvEmpleados.setItems(listaEmpleados);
+
+        // Listener para rellenar al hacer clic
+        tvEmpleados.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            empleadoSeleccionado = newSelection;
+            if (empleadoSeleccionado != null) {
+                txtNombreEmp.setText(empleadoSeleccionado.getNombre());
+                txtApellidosEmp.setText(empleadoSeleccionado.getApellidos());
+                txtSueldoEmp.setText(String.valueOf(empleadoSeleccionado.getSueldo()));
+                txtHorarioEmp.setText(empleadoSeleccionado.getHorario());
+                dpFechaContrato.setValue(empleadoSeleccionado.getFechaContrato());
             }
         });
     }
@@ -280,4 +319,7 @@ public class MainController {
         onNuevoPlatoClick(null);
         mostrarAlerta("Eliminado", "Plato eliminado.");
     }
+
+    //CRUD EMPLEADOS
+
 }
