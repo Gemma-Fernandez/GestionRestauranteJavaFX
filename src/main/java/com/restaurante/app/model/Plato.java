@@ -10,7 +10,7 @@ public class Plato {
     //CONSTRUCTOR
     public Plato(){}
 
-    public Plato(String nombre, float precio, int calorias, boolean vegetariano, String dificultad) {
+    public Plato(String nombre, double precio, int calorias, boolean vegetariano, String dificultad) {
         this.nombre = nombre;
         this.precio = precio;
         this.calorias = calorias;

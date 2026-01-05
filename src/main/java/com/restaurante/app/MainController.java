@@ -226,4 +226,58 @@ public class MainController {
         txtNombrePlato.requestFocus();
     }
 
+    @FXML
+    public void onGuardarPlatoClick(ActionEvent event) {
+        try {
+            String nombre = txtNombrePlato.getText();
+            // Validamos campos obligatorios
+            if (nombre.isEmpty() || txtPrecio.getText().isEmpty()) {
+                mostrarAlerta("Error", "Nombre y Precio son obligatorios");
+                return;
+            }
+
+            // Convertimos Strings a números
+            double precio = Double.parseDouble(txtPrecio.getText());
+            int calorias = 0;
+            if (!txtCalorias.getText().isEmpty()) calorias = Integer.parseInt(txtCalorias.getText());
+
+            String dificultad = txtDificultad.getText();
+            boolean vegetariano = chkVegetariano.isSelected();
+
+            if (platoSeleccionado == null) {
+                //nuevo plato
+                Plato nuevo = new Plato(nombre, precio, calorias, vegetariano, dificultad);
+                DataRepository.addPlato(nuevo);
+                listaPlatos.add(nuevo);
+                mostrarAlerta("Guardado", "Plato creado correctamente.");
+            } else {
+                // editar plato
+                platoSeleccionado.setNombre(nombre);
+                platoSeleccionado.setPrecio(precio);
+                platoSeleccionado.setCalorias(calorias);
+                platoSeleccionado.setDificultad(dificultad);
+                platoSeleccionado.setVegetariano(vegetariano);
+
+                tvPlatos.refresh();         // Refrescar vista
+                DataRepository.saveData();      // Guardar cambios
+                mostrarAlerta("Actualizado", "Plato modificado correctamente.");
+            }
+            onNuevoPlatoClick(null);        // Resetear
+
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Error", "Revisa que Precio y Calorías sean números (usa punto para decimales).");
+        }
+    }
+    @FXML
+    public void onEliminarPlatoClick(ActionEvent event) {
+        if (platoSeleccionado == null) {
+            mostrarAlerta("Error", "Selecciona un plato para eliminar.");
+            return;
+        }
+
+        DataRepository.removePlato(platoSeleccionado);
+        listaPlatos.remove(platoSeleccionado);
+        onNuevoPlatoClick(null);
+        mostrarAlerta("Eliminado", "Plato eliminado.");
+    }
 }
