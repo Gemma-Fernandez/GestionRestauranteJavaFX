@@ -18,16 +18,24 @@ public class MainController {
 
     // ELEMENTOS DE RESTAURANTE
     // Para decirle a la tabla el tipo de objetos tiene
-    @FXML public TableView<Restaurante> tvRestaurantes;
-    @FXML public TableColumn<Restaurante, String> colNombre;
-    @FXML public TableColumn<Restaurante, String> colCiudad;
+    @FXML
+    public TableView<Restaurante> tvRestaurantes;
+    @FXML
+    public TableColumn<Restaurante, String> colNombre;
+    @FXML
+    public TableColumn<Restaurante, String> colCiudad;
 
     // Formulario
-    @FXML public TextField txtNombre;
-    @FXML public TextField txtCiudad;
-    @FXML public TextField txtAforo;
-    @FXML public CheckBox chkAbierto;
-    @FXML public DatePicker dpFecha;
+    @FXML
+    public TextField txtNombre;
+    @FXML
+    public TextField txtCiudad;
+    @FXML
+    public TextField txtAforo;
+    @FXML
+    public CheckBox chkAbierto;
+    @FXML
+    public DatePicker dpFecha;
 
     // Hace que la tabla se actualice sola cuando añadimos datos
     private ObservableList<Restaurante> listaRestaurantes;
@@ -35,15 +43,23 @@ public class MainController {
     private Restaurante restauranteSeleccionado;
 
     //ELEMENTOS DE PLATO
-    @FXML private TableView<Plato> tvPlatos;
-    @FXML private TableColumn<Plato, String> colNombrePlato;
-    @FXML private TableColumn<Plato, Double> colPrecio;
+    @FXML
+    private TableView<Plato> tvPlatos;
+    @FXML
+    private TableColumn<Plato, String> colNombrePlato;
+    @FXML
+    private TableColumn<Plato, Double> colPrecio;
 
-    @FXML private TextField txtNombrePlato;
-    @FXML private TextField txtPrecio;
-    @FXML private TextField txtCalorias;
-    @FXML private TextField txtDificultad;
-    @FXML private CheckBox chkVegetariano;
+    @FXML
+    private TextField txtNombrePlato;
+    @FXML
+    private TextField txtPrecio;
+    @FXML
+    private TextField txtCalorias;
+    @FXML
+    private TextField txtDificultad;
+    @FXML
+    private CheckBox chkVegetariano;
 
     // Lista para que la tabla se actualice automáticamente
     private ObservableList<Plato> listaPlatos = FXCollections.observableArrayList();
@@ -51,17 +67,27 @@ public class MainController {
     private Plato platoSeleccionado;
 
     //Elementos EMPLEADOS
-    @FXML private TableView<Empleado> tvEmpleados;
-    @FXML private TableColumn<Empleado, String> colNombreEmp;
-    @FXML private TableColumn<Empleado, String> colApellidosEmp;
-    @FXML private TableColumn<Empleado, Float> colSueldoEmp; // Ojo: Float
-    @FXML private TableColumn<Empleado, String> colHorarioEmp;
+    @FXML
+    private TableView<Empleado> tvEmpleados;
+    @FXML
+    private TableColumn<Empleado, String> colNombreEmp;
+    @FXML
+    private TableColumn<Empleado, String> colApellidosEmp;
+    @FXML
+    private TableColumn<Empleado, Float> colSueldoEmp; // Ojo: Float
+    @FXML
+    private TableColumn<Empleado, String> colHorarioEmp;
 
-    @FXML private TextField txtNombreEmp;
-    @FXML private TextField txtApellidosEmp;
-    @FXML private TextField txtSueldoEmp;
-    @FXML private TextField txtHorarioEmp;
-    @FXML private DatePicker dpFechaContrato;
+    @FXML
+    private TextField txtNombreEmp;
+    @FXML
+    private TextField txtApellidosEmp;
+    @FXML
+    private TextField txtSueldoEmp;
+    @FXML
+    private TextField txtHorarioEmp;
+    @FXML
+    private DatePicker dpFechaContrato;
 
     private ObservableList<Empleado> listaEmpleados = FXCollections.observableArrayList();
     // Guarda el empleado seleccionado actualmente
@@ -193,7 +219,7 @@ public class MainController {
                 DataRepository.addRestaurante(nuevoRestaurante);
                 listaRestaurantes.add(nuevoRestaurante);
 
-                mostrarAlerta("Guardado","Restaurante creado con exito");
+                mostrarAlerta("Guardado", "Restaurante creado con exito");
 
             } else {
                 restauranteSeleccionado.setNombre(nombre);
@@ -216,7 +242,6 @@ public class MainController {
             mostrarAlerta("Error", "El Aforo debe ser un número.");
         }
     }
-
 
 
     private void mostrarAlerta(String titulo, String mensaje) {
@@ -252,11 +277,12 @@ public class MainController {
             mostrarAlerta("Eliminado", "Restaurante eliminado correctamente.");
         }
     }
+
     //CRUD PLATOS
     @FXML
-    public void onNuevoPlatoClick(ActionEvent event){
+    public void onNuevoPlatoClick(ActionEvent event) {
         tvPlatos.getSelectionModel().clearSelection();
-        platoSeleccionado =null;
+        platoSeleccionado = null;
 
         txtNombrePlato.clear();
         txtPrecio.clear();
@@ -308,6 +334,7 @@ public class MainController {
             mostrarAlerta("Error", "Revisa que Precio y Calorías sean números (usa punto para decimales).");
         }
     }
+
     @FXML
     public void onEliminarPlatoClick(ActionEvent event) {
         if (platoSeleccionado == null) {
@@ -336,6 +363,7 @@ public class MainController {
 
         txtNombreEmp.requestFocus();
     }
+
     @FXML
     public void onEliminarEmpleadoClick(ActionEvent event) {
         if (empleadoSeleccionado == null) {
@@ -400,4 +428,5 @@ public class MainController {
         }
 
 
+    }
 }
