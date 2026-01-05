@@ -321,5 +321,18 @@ public class MainController {
     }
 
     //CRUD EMPLEADOS
+    @FXML
+    public void onNuevoEmpleadoClick(ActionEvent event) {
+        tvEmpleados.getSelectionModel().clearSelection();
+        empleadoSeleccionado = null;
 
+        // Limpiar campos
+        txtNombreEmp.clear();
+        txtApellidosEmp.clear();
+        txtSueldoEmp.clear();
+        txtHorarioEmp.clear();
+        dpFechaContrato.setValue(null);
+
+        txtNombreEmp.requestFocus();
+    }
 }
