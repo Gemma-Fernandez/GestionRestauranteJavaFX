@@ -92,7 +92,7 @@
                                        <children>
                                           <Label text="Datos del Plato:" />
                                           <Label text="Nombre:" />
-                                          <TextField fx:id="txtNombrePLato" />
+                                          <TextField fx:id="txtNombrePlato" />
                                           <Label text="Precio:" />
                                           <TextField fx:id="txtPrecio" />
                                           <Label text="Calorias:" />
