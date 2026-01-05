@@ -64,6 +64,7 @@ public class MainController {
     @FXML private DatePicker dpFechaContrato;
 
     private ObservableList<Empleado> listaEmpleados = FXCollections.observableArrayList();
+    // Guarda el empleado seleccionado actualmente
     private Empleado empleadoSeleccionado;
 
 
@@ -71,15 +72,15 @@ public class MainController {
     @FXML
     public void initialize() {
         //Configuracion RESTAURANTES
-        // 1. Configurar columnas
+        //Configurar columnas
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colCiudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
 
-        // 2. Cargar datos del repositorio
+        // Cargar datos del repositorio
         listaRestaurantes = FXCollections.observableArrayList(DataRepository.getRestaurantes());
         tvRestaurantes.setItems(listaRestaurantes);
 
-        // 3. Detectar clic en la tabla
+        // Detectar clic en la tabla
         tvRestaurantes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             restauranteSeleccionado = newSelection;
             mostrarDetalles(restauranteSeleccionado);
@@ -321,5 +322,82 @@ public class MainController {
     }
 
     //CRUD EMPLEADOS
+    @FXML
+    public void onNuevoEmpleadoClick(ActionEvent event) {
+        tvEmpleados.getSelectionModel().clearSelection();
+        empleadoSeleccionado = null;
+
+        // Limpiar campos
+        txtNombreEmp.clear();
+        txtApellidosEmp.clear();
+        txtSueldoEmp.clear();
+        txtHorarioEmp.clear();
+        dpFechaContrato.setValue(null);
+
+        txtNombreEmp.requestFocus();
+    }
+    @FXML
+    public void onEliminarEmpleadoClick(ActionEvent event) {
+        if (empleadoSeleccionado == null) {
+            mostrarAlerta("Selección requerida", "Selecciona un empleado para eliminar.");
+            return;
+        }
+
+        // Confirmación opcional
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Despedir a " + empleadoSeleccionado.getApellidos() + "?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            DataRepository.removeEmpleado(empleadoSeleccionado);
+            listaEmpleados.remove(empleadoSeleccionado);
+            onNuevoEmpleadoClick(null);
+        }
+    }
+
+    @FXML
+    public void onGuardarEmpleadoClick(ActionEvent event) {
+        try {
+            // Recoger datos
+            String nombre = txtNombreEmp.getText();
+            String apellidos = txtApellidosEmp.getText();
+            String horario = txtHorarioEmp.getText();
+            LocalDate fecha = dpFechaContrato.getValue();
+
+            // VALIDACIÓN: Apellidos y Sueldo son obligatorios según tu modelo
+            if (apellidos.isEmpty() || txtSueldoEmp.getText().isEmpty()) {
+                mostrarAlerta("Datos incompletos", "Apellidos y Sueldo son obligatorios.");
+                return;
+            }
+
+            // Si no pone fecha, ponemos la de hoy
+            if (fecha == null) fecha = LocalDate.now();
+
+            // Conversión a float
+            float sueldo = Float.parseFloat(txtSueldoEmp.getText());
+
+            if (empleadoSeleccionado == null) {
+                // CREAR NUEVO
+                Empleado nuevo = new Empleado(nombre, apellidos, sueldo, fecha, horario);
+                DataRepository.addEmpleado(nuevo);
+                listaEmpleados.add(nuevo);
+                mostrarAlerta("Éxito", "Empleado contratado correctamente.");
+            } else {
+                // EDITAR EXISTENTE
+                empleadoSeleccionado.setNombre(nombre);
+                empleadoSeleccionado.setApellidos(apellidos);
+                empleadoSeleccionado.setSueldo(sueldo);
+                empleadoSeleccionado.setFechaContrato(fecha);
+                empleadoSeleccionado.setHorario(horario);
+
+                tvEmpleados.refresh();
+                DataRepository.saveData();
+                mostrarAlerta("Éxito", "Datos del empleado actualizados.");
+            }
+            onNuevoEmpleadoClick(null); // Limpiar
+
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Error de formato", "El sueldo debe ser un número (usa punto para decimales).");
+        }
+
 
 }

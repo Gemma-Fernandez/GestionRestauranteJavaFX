@@ -12,7 +12,6 @@ import java.io.IOException;
 public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        // CORRECCIÓN AQUÍ: Solo el nombre del archivo, sin rutas largas
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("main-view.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
@@ -22,7 +21,6 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
-        // CORRECCIÓN 2: Recuperamos la carga de datos que habíamos hecho antes
         DataRepository.loadData();
 
         launch();
