@@ -12,10 +12,13 @@ import java.io.IOException;
 public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("main-view.fxml"));
+        //Cargamos el Splash en lugar del main-view
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("splash-view.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-        stage.setTitle("Gestión Restaurante");
+        Scene scene = new Scene(fxmlLoader.load());
+
+
+        stage.setTitle("Cargando...");
         stage.setScene(scene);
         stage.show();
     }
