@@ -64,6 +64,7 @@ public class MainController {
     @FXML private DatePicker dpFechaContrato;
 
     private ObservableList<Empleado> listaEmpleados = FXCollections.observableArrayList();
+    // Guarda el empleado seleccionado actualmente
     private Empleado empleadoSeleccionado;
 
 
@@ -71,15 +72,15 @@ public class MainController {
     @FXML
     public void initialize() {
         //Configuracion RESTAURANTES
-        // 1. Configurar columnas
+        //Configurar columnas
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colCiudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
 
-        // 2. Cargar datos del repositorio
+        // Cargar datos del repositorio
         listaRestaurantes = FXCollections.observableArrayList(DataRepository.getRestaurantes());
         tvRestaurantes.setItems(listaRestaurantes);
 
-        // 3. Detectar clic en la tabla
+        // Detectar clic en la tabla
         tvRestaurantes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             restauranteSeleccionado = newSelection;
             mostrarDetalles(restauranteSeleccionado);
@@ -335,4 +336,23 @@ public class MainController {
 
         txtNombreEmp.requestFocus();
     }
+    @FXML
+    public void onEliminarEmpleadoClick(ActionEvent event) {
+        if (empleadoSeleccionado == null) {
+            mostrarAlerta("Selección requerida", "Selecciona un empleado para eliminar.");
+            return;
+        }
+
+        // Confirmación opcional
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Despedir a " + empleadoSeleccionado.getApellidos() + "?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            DataRepository.removeEmpleado(empleadoSeleccionado);
+            listaEmpleados.remove(empleadoSeleccionado);
+            onNuevoEmpleadoClick(null);
+        }
+    }
+
+
 }
