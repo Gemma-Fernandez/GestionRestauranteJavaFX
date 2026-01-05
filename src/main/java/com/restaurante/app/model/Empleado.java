@@ -32,5 +32,8 @@ public class Empleado {
 
         public String getHorario() { return horario; }
         public void setHorario(String horario) { this.horario = horario; }
+
+        @Override
+        public String toString() { return nombre + " " + apellidos; }
     }
 

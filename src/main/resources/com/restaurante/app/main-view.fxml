@@ -120,7 +120,46 @@
     </Tab>
       <Tab text="Empleados">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <SplitPane dividerPositions="0.5008361204013378" layoutX="-1.0" layoutY="-3.0" prefHeight="345.0" prefWidth="600.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <TableView fx:id="tvEmpleados" layoutX="2.0" layoutY="55.0" prefHeight="273.0" prefWidth="293.0">
+                                <columns>
+                                  <TableColumn fx:id="colNombreEmp" prefWidth="75.0" text="Nombre" />
+                                  <TableColumn fx:id="colApellidosEmp" prefWidth="75.0" text="Apellidos" />
+                                    <TableColumn fx:id="colSueldoEmp" prefWidth="75.0" text="Sueldo" />
+                                    <TableColumn fx:id="colHorarioEmp" prefWidth="75.0" text="Horario" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <VBox layoutX="42.0" layoutY="3.0" prefHeight="324.0" prefWidth="208.0">
+                                 <children>
+                                    <Label text="Nombre:" />
+                                    <TextField fx:id="txtNombreEmp" />
+                                    <Label text="Apellidos:" />
+                                    <TextField fx:id="txtApellidosEmp" />
+                                    <Label text="Sueldo:" />
+                                    <TextField fx:id="txtSueldoEmp" />
+                                    <Label text="Horario:" />
+                                    <TextField fx:id="txtHorarioEmp" />
+                                    <Label text="Fecha contrato:" />
+                                    <DatePicker fx:id="dpFechaContrato" />
+                                    <Button fx:id="btnNuevoEmp" mnemonicParsing="false" onAction="#onNuevoEmpleadoClick" text="Nuevo" />
+                                    <Button fx:id="btnGuardarEmp" mnemonicParsing="false" onAction="#onGuardarEmpleadoClick" text="Guardar" />
+                                    <Button fx:id="btnEliminarEmp" mnemonicParsing="false" onAction="#onEliminarEmpleadoClick" text="Eliminar" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children></AnchorPane>
         </content>
       </Tab>
   </tabs>
