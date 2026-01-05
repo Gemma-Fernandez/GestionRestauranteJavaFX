@@ -354,5 +354,50 @@ public class MainController {
         }
     }
 
+    @FXML
+    public void onGuardarEmpleadoClick(ActionEvent event) {
+        try {
+            // Recoger datos
+            String nombre = txtNombreEmp.getText();
+            String apellidos = txtApellidosEmp.getText();
+            String horario = txtHorarioEmp.getText();
+            LocalDate fecha = dpFechaContrato.getValue();
+
+            // VALIDACIÓN: Apellidos y Sueldo son obligatorios según tu modelo
+            if (apellidos.isEmpty() || txtSueldoEmp.getText().isEmpty()) {
+                mostrarAlerta("Datos incompletos", "Apellidos y Sueldo son obligatorios.");
+                return;
+            }
+
+            // Si no pone fecha, ponemos la de hoy
+            if (fecha == null) fecha = LocalDate.now();
+
+            // Conversión a float
+            float sueldo = Float.parseFloat(txtSueldoEmp.getText());
+
+            if (empleadoSeleccionado == null) {
+                // CREAR NUEVO
+                Empleado nuevo = new Empleado(nombre, apellidos, sueldo, fecha, horario);
+                DataRepository.addEmpleado(nuevo);
+                listaEmpleados.add(nuevo);
+                mostrarAlerta("Éxito", "Empleado contratado correctamente.");
+            } else {
+                // EDITAR EXISTENTE
+                empleadoSeleccionado.setNombre(nombre);
+                empleadoSeleccionado.setApellidos(apellidos);
+                empleadoSeleccionado.setSueldo(sueldo);
+                empleadoSeleccionado.setFechaContrato(fecha);
+                empleadoSeleccionado.setHorario(horario);
+
+                tvEmpleados.refresh();
+                DataRepository.saveData();
+                mostrarAlerta("Éxito", "Datos del empleado actualizados.");
+            }
+            onNuevoEmpleadoClick(null); // Limpiar
+
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Error de formato", "El sueldo debe ser un número (usa punto para decimales).");
+        }
+
 
 }
