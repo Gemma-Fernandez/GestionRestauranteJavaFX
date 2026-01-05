@@ -92,7 +92,7 @@
                                        <children>
                                           <Label text="Datos del Plato:" />
                                           <Label text="Nombre:" />
-                                          <TextField fx:id="txtNombrePLato" />
+                                          <TextField fx:id="txtNombrePlato" />
                                           <Label text="Precio:" />
                                           <TextField fx:id="txtPrecio" />
                                           <Label text="Calorias:" />
@@ -102,7 +102,7 @@
                                           <TextField fx:id="txtDificultad" />
                                           <HBox prefHeight="100.0" prefWidth="200.0">
                                              <children>
-                                                <Button fx:id="btnNuevoPlato" mnemonicParsing="false" onAction="#onNuevoPLatoClick" text="Nuevo" />
+                                                <Button fx:id="btnNuevoPlato" mnemonicParsing="false" onAction="#onNuevoPlatoClick" text="Nuevo" />
                                                 <Button fx:id="btnGuardarPlato" mnemonicParsing="false" onAction="#onGuardarPlatoClick" text="Guardar" />
                                                 <Button fx:id="btnEliminarPlato" mnemonicParsing="false" onAction="#onEliminarPlatoClick" text="Eliminar" />
                                              </children>
