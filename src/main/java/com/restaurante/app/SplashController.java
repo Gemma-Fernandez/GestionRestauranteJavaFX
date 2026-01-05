@@ -31,7 +31,7 @@ public class SplashController {
             e.printStackTrace();
         }
 
-        // pausa de 3 segundos
+        //pausa de 3 segundos
         PauseTransition delay = new PauseTransition(Duration.seconds(3));
 
         // Qué hacer cuando termine la pausa:
