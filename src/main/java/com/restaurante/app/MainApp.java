@@ -12,6 +12,7 @@ import java.io.IOException;
 public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        DataRepository.loadData();
         //Cargamos el Splash en lugar del main-view
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("splash-view.fxml"));
 

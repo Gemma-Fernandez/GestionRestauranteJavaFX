@@ -1,8 +1,11 @@
 package com.restaurante.app.model;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
-public class Empleado {
+public class Empleado implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String nombre;
     private String apellidos;     // Obligatorio
     private float sueldo;         // Obligatorio
