@@ -16,55 +16,64 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.restaurante.app.MainController">
   <tabs>
-    <Tab text="Restaurantes">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <SplitPane dividerPositions="0.5" layoutX="-4.0" prefHeight="371.0" prefWidth="607.0">
-                    <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                           <children>
-                              <TableView fx:id="tvRestaurantes" layoutX="42.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0">
-                                <columns>
-                                  <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
-                                  <TableColumn fx:id="colCiudad" prefWidth="75.0" text="Ciudad" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                           <children>
-                              <VBox layoutX="63.0" layoutY="24.0" prefHeight="290.0" prefWidth="173.0">
-                                 <children>
-                                    <Label text="Datos del Restaurante" />
-                                    <Label text="Nombre:" />
-                                    <TextField fx:id="txtNombre" />
-                                    <Label text="Ciudad:" />
-                                    <TextField fx:id="txtCiudad" />
-                                    <Label text="Aforo:" />
-                                    <TextField fx:id="txtAforo" />
-                                    <CheckBox fx:id="chkAbierto" mnemonicParsing="false" text="Esta Abierto" />
-                                    <Label text="Fecha de apertura" />
-                                    <DatePicker fx:id="dpFecha" />
-                                    <HBox prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#onNuevoClick" text="Nuevo" />
-                                          <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#onGuardarClick" text="Guardar" />
-                                          <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#onEliminarClick" text="Eliminar" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                    </items>
-                  </SplitPane>
-               </children></AnchorPane>
-      </content>
-    </Tab>
+      <Tab text="Restaurantes">
+          <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                      <SplitPane dividerPositions="0.5" layoutX="-4.0" prefHeight="371.0" prefWidth="607.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                  <children>
+                                      <VBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                          <children>
+                                              <VBox spacing="5.0" style="-fx-background-color: #f4f4f4; -fx-padding: 10; -fx-background-radius: 5;">
+                                                  <children>
+                                                      <Label text="🔍 Filtrar lista:" style="-fx-font-weight: bold;" />
+                                                      <TextField fx:id="txtBusquedaNombre" promptText="Buscar por nombre..." />
+                                                      <TextField fx:id="txtBusquedaLocalidad" promptText="Buscar por ciudad..." />
+                                                  </children>
+                                              </VBox> <TableView fx:id="tvRestaurantes" VBox.vgrow="ALWAYS">
+                                              <columns>
+                                                  <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
+                                                  <TableColumn fx:id="colCiudad" prefWidth="75.0" text="Ciudad" />
+                                              </columns>
+                                              <columnResizePolicy>
+                                                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                              </columnResizePolicy>
+                                          </TableView>
+                                          </children>
+                                      </VBox> </children>
+                              </AnchorPane>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                  <children>
+                                      <VBox layoutX="63.0" layoutY="24.0" prefHeight="290.0" prefWidth="173.0">
+                                          <children>
+                                              <Label text="Datos del Restaurante" />
+                                              <Label text="Nombre:" />
+                                              <TextField fx:id="txtNombre" />
+                                              <Label text="Ciudad:" />
+                                              <TextField fx:id="txtCiudad" />
+                                              <Label text="Aforo:" />
+                                              <TextField fx:id="txtAforo" />
+                                              <CheckBox fx:id="chkAbierto" mnemonicParsing="false" text="Esta Abierto" />
+                                              <Label text="Fecha de apertura" />
+                                              <DatePicker fx:id="dpFecha" />
+                                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                                  <children>
+                                                      <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#onNuevoClick" text="Nuevo" />
+                                                      <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#onGuardarClick" text="Guardar" />
+                                                      <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#onEliminarClick" text="Eliminar" />
+                                                  </children>
+                                              </HBox>
+                                          </children>
+                                      </VBox>
+                                  </children>
+                              </AnchorPane>
+                          </items>
+                      </SplitPane>
+                  </children></AnchorPane>
+          </content>
+      </Tab>
     <Tab text="Platos">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

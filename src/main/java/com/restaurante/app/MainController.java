@@ -6,6 +6,7 @@ import com.restaurante.app.model.Restaurante;
 import com.restaurante.app.repository.DataRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -93,6 +94,12 @@ public class MainController {
     // Guarda el empleado seleccionado actualmente
     private Empleado empleadoSeleccionado;
 
+    //filtros
+    @FXML private TextField txtBusquedaNombre;
+    @FXML private TextField txtBusquedaLocalidad;
+
+    private FilteredList<Restaurante> listaFiltradaRest;
+
 
     // METODO INITIALIZE (Se ejecuta al arrancar la ventana)
     @FXML
@@ -156,6 +163,16 @@ public class MainController {
                 dpFechaContrato.setValue(empleadoSeleccionado.getFechaContrato());
             }
         });
+
+        //Creo la lista filtrada
+        listaFiltradaRest = new FilteredList<>(listaRestaurantes, p -> true);
+
+        //Usa la lista filtrada en lugar de la normal
+        tvRestaurantes.setItems(listaFiltradaRest);
+
+        //Escuchamos cambios en los cuadros de texto
+        txtBusquedaNombre.textProperty().addListener((obs, viejo, nuevo) -> filtrarRestaurantes());
+        txtBusquedaLocalidad.textProperty().addListener((obs, viejo, nuevo) -> filtrarRestaurantes());
     }
 
     // CRUD RESTAURANTES
@@ -412,5 +429,22 @@ public class MainController {
         }
 
 
+    }
+    //filtro de restaurantes
+    private void filtrarRestaurantes() {
+        listaFiltradaRest.setPredicate(restaurante -> {
+            String nombreFiltro = txtBusquedaNombre.getText().toLowerCase();
+            String localidadFiltro = txtBusquedaLocalidad.getText().toLowerCase();
+
+            // Si el filtro está vacío, pasa la validación (se muestra)
+            boolean coincideNombre = nombreFiltro.isEmpty() ||
+                    restaurante.getNombre().toLowerCase().contains(nombreFiltro);
+
+            boolean coincideLocalidad = localidadFiltro.isEmpty() ||
+                    restaurante.getCiudad().toLowerCase().contains(localidadFiltro);
+
+            // Se muestra solo si cumple AMBAS condiciones
+            return coincideNombre && coincideLocalidad;
+        });
     }
 }
