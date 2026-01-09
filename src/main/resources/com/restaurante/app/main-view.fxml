@@ -84,7 +84,7 @@
                            <items>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <TableView fx:id="tvPlatos" layoutX="42.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0">
+                                    <TableView fx:id="tvPlatos" layoutX="14.0" layoutY="106.0" prefHeight="222.0" prefWidth="276.0">
                                        <columns>
                                           <TableColumn fx:id="colNombrePlato" prefWidth="75.0" text="Nombre" />
                                           <TableColumn fx:id="colPrecio" prefWidth="75.0" text="Precio" />
@@ -93,6 +93,13 @@
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
+                                    <VBox spacing="5.0" style="-fx-background-color: #f4f4f4; -fx-padding: 10; -fx-background-radius: 5;">
+                                       <children>
+                                          <Label style="-fx-font-weight: bold;" text="🔍 Filtrar lista:" />
+                                          <TextField fx:id="txtBusquedaNombrePlato" prefHeight="26.0" prefWidth="262.0" promptText="Buscar por nombre..." />
+                                          <TextField fx:id="txtBusquedaPrecioPlato" promptText="Buscar por precio.." />
+                                       </children>
+                                    </VBox>
                                  </children>
                               </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

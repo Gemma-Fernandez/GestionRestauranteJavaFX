@@ -105,6 +105,9 @@ public class MainController {
     @FXML private TextField txtBusquedaLocalidad;
     private FilteredList<Restaurante> listaFiltradaRest;
 
+    @FXML private TextField txtBusquedaNombrePlato;
+    @FXML private TextField txtBusquedaPrecioPlato;
+    private FilteredList<Plato> listaFiltradaPlatos;
 
 
     // METODO INITIALIZE (Se ejecuta al arrancar la ventana)
@@ -188,6 +191,15 @@ public class MainController {
         txtBusquedaNombre.textProperty().addListener((obs, viejo, nuevo) -> filtrarRestaurantes());
         txtBusquedaLocalidad.textProperty().addListener((obs, viejo, nuevo) -> filtrarRestaurantes());
 
+         //filtro platos
+        listaFiltradaPlatos = new FilteredList<>(listaPlatos, p -> true);
+        tvPlatos.setItems(listaFiltradaPlatos);
+
+        // cambios en los nuevos buscadores
+        if (txtBusquedaNombrePlato != null && txtBusquedaPrecioPlato != null) {
+            txtBusquedaNombrePlato.textProperty().addListener((obs, old, nuevo) -> filtrarPlatos());
+            txtBusquedaPrecioPlato.textProperty().addListener((obs, old, nuevo) -> filtrarPlatos());
+        }
 
     }
 
@@ -463,6 +475,27 @@ public class MainController {
             return coincideNombre && coincideLocalidad;
         });
 
+    }
+
+    //filtro platos
+    private void filtrarPlatos() {
+        listaFiltradaPlatos.setPredicate(plato -> {
+            String nombre = txtBusquedaNombrePlato.getText().toLowerCase();
+            String precioStr = txtBusquedaPrecioPlato.getText();
+
+            boolean coincideNombre = nombre.isEmpty() || plato.getNombre().toLowerCase().contains(nombre);
+
+            boolean coincidePrecio = true;
+            if (!precioStr.isEmpty()) {
+                try {
+                    // Filtramos por platos que cuesten MENOS o IGUAL al precio escrito
+                    coincidePrecio = plato.getPrecio() <= Double.parseDouble(precioStr);
+                } catch (NumberFormatException e) {
+                    coincidePrecio = true; // Si escribe letras, ignoramos el filtro de precio
+                }
+            }
+            return coincideNombre && coincidePrecio;
+        });
     }
 
 }
