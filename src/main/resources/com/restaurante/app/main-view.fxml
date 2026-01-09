@@ -28,7 +28,7 @@
                                           <children>
                                               <VBox spacing="5.0" style="-fx-background-color: #f4f4f4; -fx-padding: 10; -fx-background-radius: 5;">
                                                   <children>
-                                                      <Label text="🔍 Filtrar lista:" style="-fx-font-weight: bold;" />
+                                                      <Label style="-fx-font-weight: bold;" text="🔍 Filtrar lista:" />
                                                       <TextField fx:id="txtBusquedaNombre" promptText="Buscar por nombre..." />
                                                       <TextField fx:id="txtBusquedaLocalidad" promptText="Buscar por ciudad..." />
                                                   </children>
@@ -135,14 +135,25 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <TableView fx:id="tvEmpleados" layoutX="2.0" layoutY="55.0" prefHeight="273.0" prefWidth="293.0">
+                              <TableView fx:id="tvEmpleados" layoutX="2.0" layoutY="89.0" prefHeight="239.0" prefWidth="293.0">
                                 <columns>
                                   <TableColumn fx:id="colNombreEmp" prefWidth="75.0" text="Nombre" />
-                                  <TableColumn fx:id="colApellidosEmp" prefWidth="75.0" text="Apellidos" />
-                                    <TableColumn fx:id="colSueldoEmp" prefWidth="75.0" text="Sueldo" />
+                                  <TableColumn fx:id="colApellidosEmp" prefWidth="76.0" text="Apellidos" />
+                                    <TableColumn fx:id="colSueldoEmp" prefWidth="74.0" text="Sueldo" />
                                     <TableColumn fx:id="colHorarioEmp" prefWidth="75.0" text="Horario" />
                                 </columns>
                               </TableView>
+                              <VBox layoutX="-1.0" layoutY="1.0" prefHeight="96.0" prefWidth="297.0">
+                                 <children>
+                                    <VBox spacing="5.0" style="-fx-background-color: #f4f4f4; -fx-padding: 10; -fx-background-radius: 5;">
+                                       <children>
+                                          <Label style="-fx-font-weight: bold;" text="🔍 Filtrar lista:" />
+                                          <TextField fx:id="txtBusquedaNombreEmp" promptText="Buscar por nombre..." />
+                                          <TextField fx:id="textBusquedaApellidosEmp" promptText="Buscar por apellidos..." />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

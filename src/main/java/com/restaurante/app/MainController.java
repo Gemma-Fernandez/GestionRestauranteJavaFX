@@ -25,6 +25,8 @@ public class MainController {
     public TableColumn<Restaurante, String> colNombre;
     @FXML
     public TableColumn<Restaurante, String> colCiudad;
+    @FXML
+    private Button btnEliminar;
 
     // Formulario
     @FXML
@@ -61,6 +63,8 @@ public class MainController {
     private TextField txtDificultad;
     @FXML
     private CheckBox chkVegetariano;
+    @FXML
+    private Button btnEliminarPlato;
 
     // Lista para que la tabla se actualice automáticamente
     private ObservableList<Plato> listaPlatos = FXCollections.observableArrayList();
@@ -89,6 +93,8 @@ public class MainController {
     private TextField txtHorarioEmp;
     @FXML
     private DatePicker dpFechaContrato;
+    @FXML
+    private Button btnEliminarEmp;
 
     private ObservableList<Empleado> listaEmpleados = FXCollections.observableArrayList();
     // Guarda el empleado seleccionado actualmente
@@ -97,8 +103,8 @@ public class MainController {
     //filtros
     @FXML private TextField txtBusquedaNombre;
     @FXML private TextField txtBusquedaLocalidad;
-
     private FilteredList<Restaurante> listaFiltradaRest;
+
 
 
     // METODO INITIALIZE (Se ejecuta al arrancar la ventana)
@@ -163,16 +169,26 @@ public class MainController {
                 dpFechaContrato.setValue(empleadoSeleccionado.getFechaContrato());
             }
         });
+        //Activar/desactivar botones
+        btnEliminarEmp.disableProperty().bind(
+                tvEmpleados.getSelectionModel().selectedItemProperty().isNull()
+        );
+        btnEliminar.disableProperty().bind(
+                tvRestaurantes.getSelectionModel().selectedItemProperty().isNull()
+        );
+        btnEliminarPlato.disableProperty().bind(
+                tvPlatos.getSelectionModel().selectedItemProperty().isNull()
+        );
 
-        //Creo la lista filtrada
+
+        //filtro restaurantes
         listaFiltradaRest = new FilteredList<>(listaRestaurantes, p -> true);
-
-        //Usa la lista filtrada en lugar de la normal
         tvRestaurantes.setItems(listaFiltradaRest);
 
-        //Escuchamos cambios en los cuadros de texto
         txtBusquedaNombre.textProperty().addListener((obs, viejo, nuevo) -> filtrarRestaurantes());
         txtBusquedaLocalidad.textProperty().addListener((obs, viejo, nuevo) -> filtrarRestaurantes());
+
+
     }
 
     // CRUD RESTAURANTES
@@ -446,5 +462,7 @@ public class MainController {
             // Se muestra solo si cumple AMBAS condiciones
             return coincideNombre && coincideLocalidad;
         });
+
     }
+
 }
