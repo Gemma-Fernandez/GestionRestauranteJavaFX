@@ -27,7 +27,7 @@ public class DataRepository {
         saveData();
     }
 
-    // --- PLATOS ---
+    // PLATOS
     public static List<Plato> getPlatos() { return platos; }
     public static void addPlato(Plato p) {
         platos.add(p);
@@ -38,7 +38,7 @@ public class DataRepository {
         saveData();
     }
 
-    // --- EMPLEADOS ---
+    //  EMPLEADOS
     public static List<Empleado> getEmpleados() { return empleados; }
     public static void addEmpleado(Empleado e) {
         empleados.add(e);
@@ -49,7 +49,7 @@ public class DataRepository {
         saveData();
     }
 
-    // --- GUARDADO ---
+    // GUARDADO
     public static void saveData() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
             oos.writeObject(new ArrayList<>(restaurantes));
@@ -60,7 +60,7 @@ public class DataRepository {
         }
     }
 
-    // --- CARGA ---
+    //  CARGA
     @SuppressWarnings("unchecked")
     public static void loadData() {
         File file = new File(FILE_PATH);

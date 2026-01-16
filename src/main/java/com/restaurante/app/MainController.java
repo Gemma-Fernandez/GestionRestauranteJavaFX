@@ -11,14 +11,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Alert; // Mostrar mensajes emergentes
-import java.time.LocalDate;        // Manejar las fechas
+import javafx.scene.control.Alert;      // Mostrar mensajes emergentes
+import java.time.LocalDate;             // Manejar las fechas
 
 
 public class MainController {
 
     // ELEMENTOS DE RESTAURANTE
-    // Para decirle a la tabla el tipo de objetos tiene
+    // decirle a la tabla el tipo de objetos tiene
     @FXML
     public TableView<Restaurante> tvRestaurantes;
     @FXML
@@ -195,7 +195,7 @@ public class MainController {
         listaFiltradaPlatos = new FilteredList<>(listaPlatos, p -> true);
         tvPlatos.setItems(listaFiltradaPlatos);
 
-        // cambios en los nuevos buscadores
+        // cambios en los buscadores
         if (txtBusquedaNombrePlato != null && txtBusquedaPrecioPlato != null) {
             txtBusquedaNombrePlato.textProperty().addListener((obs, old, nuevo) -> filtrarPlatos());
             txtBusquedaPrecioPlato.textProperty().addListener((obs, old, nuevo) -> filtrarPlatos());
@@ -255,7 +255,7 @@ public class MainController {
             boolean abierto = chkAbierto.isSelected();
             LocalDate fecha = dpFecha.getValue();
 
-            // Si la fecha está vacía, ponemos la de hoy por defecto
+            // Si la fecha está vacía, ponemos la de hoy
             if (fecha == null) fecha = LocalDate.now();
 
             // 2. Crear el objeto Restaurante
@@ -427,7 +427,7 @@ public class MainController {
             String horario = txtHorarioEmp.getText();
             LocalDate fecha = dpFechaContrato.getValue();
 
-            // VALIDACIÓN: Apellidos y Sueldo son obligatorios según tu modelo
+            // VALIDACIÓN: Apellidos y Sueldo son obligatorios según modelo
             if (apellidos.isEmpty() || txtSueldoEmp.getText().isEmpty()) {
                 mostrarAlerta("Datos incompletos", "Apellidos y Sueldo son obligatorios.");
                 return;

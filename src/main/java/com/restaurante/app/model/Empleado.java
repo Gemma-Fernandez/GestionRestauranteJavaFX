@@ -10,7 +10,7 @@ public class Empleado implements Serializable {
     private String apellidos;     // Obligatorio
     private float sueldo;         // Obligatorio
     private LocalDate fechaContrato;
-    private String horario;       // (Mañana, Tarde)
+    private String horario;
 
     public Empleado(String nombre, String apellidos, float sueldo, LocalDate fechaContrato, String horario) {
         this.nombre = nombre;
