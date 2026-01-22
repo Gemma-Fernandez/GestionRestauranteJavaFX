@@ -282,6 +282,11 @@ public class MainController {
 
             } else {
 
+                restauranteSeleccionado.setNombre(nombre);
+                restauranteSeleccionado.setCiudad(ciudad);
+                restauranteSeleccionado.setAforo(aforo);
+                restauranteSeleccionado.setAbierto(abierto);
+                restauranteSeleccionado.setFechaApertura(fecha);
                 // Forzamos a la tabla para ver los cambios
                 tvRestaurantes.refresh();
                 // Guardamos los cambios en el archivo
@@ -371,6 +376,12 @@ public class MainController {
                 listaPlatos.add(nuevo);
                 mostrarAlerta("Guardado", "Plato creado correctamente.");
             } else {
+
+                platoSeleccionado.setNombre(nombre);
+                platoSeleccionado.setPrecio(precio);
+                platoSeleccionado.setCalorias(calorias);
+                platoSeleccionado.setDificultad(dificultad);
+                platoSeleccionado.setVegetariano(vegetariano);
                 // editar plato
                 DataRepository.saveData();
 
@@ -460,6 +471,14 @@ public class MainController {
                 listaEmpleados.add(nuevo);
                 mostrarAlerta("Éxito", "Empleado contratado correctamente.");
             } else {
+                empleadoSeleccionado.setNombre(nombre);
+                empleadoSeleccionado.setApellidos(apellidos);
+                empleadoSeleccionado.setSueldo(sueldo);
+                empleadoSeleccionado.setSueldo(sueldo);
+                empleadoSeleccionado.setHorario(horario);
+                empleadoSeleccionado.setFechaContrato(fecha);
+
+                tvEmpleados.refresh();
                 // EDITAR EXISTENTE
                 DataRepository.saveData();
                 mostrarAlerta("Éxito", "Datos del empleado actualizados.");
