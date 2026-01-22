@@ -109,6 +109,10 @@ public class MainController {
     @FXML private TextField txtBusquedaPrecioPlato;
     private FilteredList<Plato> listaFiltradaPlatos;
 
+    @FXML private TextField txtBusquedaNombreEmp;
+    @FXML private TextField txtBusquedaApellidosEmp;
+    private FilteredList<Empleado> listaFiltradaEmp;
+
 
     // METODO INITIALIZE (Se ejecuta al arrancar la ventana)
     @FXML
@@ -201,6 +205,16 @@ public class MainController {
             txtBusquedaPrecioPlato.textProperty().addListener((obs, old, nuevo) -> filtrarPlatos());
         }
 
+        //filtro de empleados
+        listaFiltradaEmp = new FilteredList<>(listaEmpleados, p -> true);
+        tvEmpleados.setItems(listaFiltradaEmp);
+        if (txtBusquedaNombreEmp != null && txtBusquedaApellidosEmp != null) {
+            txtBusquedaNombreEmp.textProperty().addListener((obs, old, nuevo) -> filtrarEmpleados());
+            txtBusquedaApellidosEmp.textProperty().addListener((obs, old, nuevo) -> filtrarEmpleados());
+        }
+        else {
+            System.out.println("⚠️ AVISO: Los campos de búsqueda de empleados no se encontraron");
+        }
     }
 
     // CRUD RESTAURANTES
@@ -497,5 +511,19 @@ public class MainController {
             return coincideNombre && coincidePrecio;
         });
     }
+    //filtro de empleados
+    private void filtrarEmpleados() {
+        listaFiltradaEmp.setPredicate(empleado -> {
+            if (empleado == null) return true;
+            String filtroNombre = txtBusquedaNombreEmp.getText().toLowerCase();
+            String filtroApellido = txtBusquedaApellidosEmp.getText().toLowerCase();
+            boolean coincideNombre = filtroNombre.isEmpty() ||
+                    empleado.getNombre().toLowerCase().contains(filtroNombre);
+            boolean coincideApellido = filtroApellido.isEmpty() ||
+                    empleado.getApellidos().toLowerCase().contains(filtroApellido);
+            return coincideNombre && coincideApellido;
+        });
+    }
+
 
 }

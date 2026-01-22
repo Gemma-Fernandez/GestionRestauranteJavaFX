@@ -156,7 +156,7 @@
                                        <children>
                                           <Label style="-fx-font-weight: bold;" text="🔍 Filtrar lista:" />
                                           <TextField fx:id="txtBusquedaNombreEmp" promptText="Buscar por nombre..." />
-                                          <TextField fx:id="textBusquedaApellidosEmp" promptText="Buscar por apellidos..." />
+                                          <TextField fx:id="txtBusquedaApellidosEmp" promptText="Buscar por apellidos..." />
                                        </children>
                                     </VBox>
                                  </children>
